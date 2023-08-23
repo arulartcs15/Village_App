@@ -1,8 +1,7 @@
 import { useState, Suspense } from "react"
 import { useDispatch } from 'react-redux'
 import { asynctUserRegister } from "../actions/usersActions"
-import { Button, Row, Col, Form } from 'react-bootstrap'
-import i18n from 'i18next'
+import { Row, Col, Form } from 'react-bootstrap'
 
 
 const Register = (props) => {
@@ -12,8 +11,8 @@ const Register = (props) => {
     const [formErrors, setformErrors] = useState({})
     const errors = {}
     const dispatch = useDispatch()
-    const { t} = props
-  
+    const { t } = props
+
 
     const handleNameChange = (e) => {
         setName(e.target.value)
@@ -27,7 +26,7 @@ const Register = (props) => {
     const runValidations = () => {
         if (name.length === 0) {
             errors.name = 'Name cannot be blank'
-                }
+        }
         if (phoneNumber.length === 0) {
             errors.phoneNumber = 'PhoneNumber cannot be blank'
         }
@@ -69,59 +68,66 @@ const Register = (props) => {
 
 
     return (
-        <Suspense fallback="Loading..." >
-            <div>
-                <Row className="justify-content-md-center">
-                    <center> <Col md="auto" >{(localStorage.getItem('token')) ? <h1 style={{ color: "DarkBlue" }}>{t("admin")}</h1> : <h1 style={{ color: "DarkBlue" }}><b>{t("Register")}</b></h1>}</Col></center>
-                </Row>
+        <div className="container">
+            <div className="row">
+                <div className="col-md-3">
+                </div>
+                <div className="pad col-md-6">
 
-                <center>
-                    <Form  >
-                        <Form.Group as={Row} className='mt-5'>
-                            <Form.Label className="mx-5" column md={2}>{t("Name")}</Form.Label>
-                            <Col md={5}>
-                                <Form.Control type='text' value={name} placeholder={t("name")} onChange={handleNameChange} />
+                    <div className="card-shadow">
 
-                                <Form.Text className="text-muted">
-                                    {formErrors.name ? <span style={{ color: "red" }}>{t("blankName")}</span> : <span>{t("shareName")}</span>}
-                                </Form.Text>
-                            </Col>
-                        </Form.Group>
+                        <div className="card body">
 
-                        <Form.Group as={Row} className='mt-3'>
-                            <Form.Label className="mx-5" column md={2}>{t("PhoneNumber")}</Form.Label>
-                            <Col md={5}>
-                                <Form.Control ttype='text' value={phoneNumber} placeholder={t("phonenumber")} onChange={handleNumberChange} />
+                            <div className="pad register">
+                                <h1 >{(localStorage.getItem('token')) ? <span style={{ color: "DarkBlue" }}>{t("admin")}</span> : <span  style={{ color: "DarkBlue" }}><b id='heading'>{t("Register")}</b></span>}</h1>
+                                <Form  >
+                                    <Form.Group as={Row} className='mt-5'>
+                                        <Form.Label className="mx-5" column md={2}>{t("Name")}</Form.Label>
+                                        <Col md={5}>
+                                            <Form.Control type='text' value={name} placeholder={t("name")} onChange={handleNameChange} />
 
-                                <Form.Text className="text-muted">
-                                    {formErrors.phoneNumber ? <span style={{ color: "red" }}>{t("blankPhoneNumber")}</span> : <span>{t("sharePhoneNumber")}</span>}
-                                </Form.Text>
-                            </Col>
-                        </Form.Group>
+                                            <Form.Text className="text-muted">
+                                                {formErrors.name ? <span style={{ color: "red" }}>{t("blankName")}</span> : <span style={{ color: 'green' }}>{t("shareName")}</span>}
+                                            </Form.Text>
+                                        </Col>
+                                    </Form.Group>
 
-                        <Form.Group as={Row} className='mt-3'>
-                            <Form.Label className="mx-5" column md={2}>{t("Password")}</Form.Label>
-                            <Col md={5}>
-                                <Form.Control type='password' value={password} placeholder={t("password")} onChange={handlePasswordchange} />
+                                    <Form.Group as={Row} className='mt-3'>
+                                        <Form.Label className="mx-5" column md={2}>{t("PhoneNumber")}</Form.Label>
+                                        <Col md={5}>
+                                            <Form.Control ttype='text' value={phoneNumber} placeholder={t("phonenumber")} onChange={handleNumberChange} />
 
-                                <Form.Text className="text-muted">
-                                    {formErrors.password ? <span style={{ color: "red" }}>{t("blankPassword")}</span> : <span>{t("sharePassword")}</span>}
-                                </Form.Text>
-                            </Col>
-                        </Form.Group>
+                                            <Form.Text className="text-muted">
+                                                {formErrors.phoneNumber ? <span style={{ color: "red" }}>{t("blankPhoneNumber")}</span> : <span style={{ color: 'green' }}>{t("sharePhoneNumber")}</span>}
+                                            </Form.Text>
+                                        </Col>
+                                    </Form.Group>
 
-                        <Button variant="primary" type="submit" onClick={handleSubmit}>
-                           {(localStorage.getItem('token' ) )? <span>{t("Create")}</span> : <span>{t("Register")}</span> } 
-                        </Button>
+                                    <Form.Group as={Row} className='mt-3'>
+                                        <Form.Label className="mx-5" column md={2}>{t("Password")}</Form.Label>
+                                        <Col md={5}>
+                                            <Form.Control type='password' value={password} placeholder={t("password")} onChange={handlePasswordchange} />
 
-                    </Form>
+                                            <Form.Text className="text-muted">
+                                                {formErrors.password ? <span style={{ color: "red" }}>{t("blankPassword")}</span> : <span style={{ color: 'green' }}>{t("sharePassword")}</span>}
+                                            </Form.Text>
+                                        </Col>
+                                    </Form.Group>
+                                    </Form>
 
-             
-
-                </center>
+                                    <button className="registerButton" type="submit" onClick={handleSubmit}>
+                                        {(localStorage.getItem('token')) ? <span>{t("Create")}</span> : <span>{t("Register")}</span>}
+                                    </button>
+                             
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="col-md-3">
+                </div>
             </div>
-        </Suspense>
-       
+        </div>
+
     )
 }
 export default Register
