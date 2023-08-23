@@ -1,29 +1,30 @@
-import React from "react";
-import { Link, Route, withRouter,Switch,Redirect } from 'react-router-dom'
+import React, { Suspense } from "react";
+import { Link, Route, withRouter } from 'react-router-dom'
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Register from "./Register";
-import Login from "./Login";
-import Home from "./Home";
-import Village from "./Village";
-import Products from "./Products";
-import Residents from "./Residents";
-import Events from "./Events";
-import DeleteAccount from "./DeleteAccount";
-import Admin from "./Admin";
+import Spinner from "./Spinner";
 import Swal from "sweetalert2";
 import { asyncAccountDetails } from "../actions/usersActions";
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
-import { Router } from "react-router-dom/cjs/react-router-dom.min";
+
+const Register=React.lazy(()=>import("./Register"))
+const Login=React.lazy(()=>import("./Login"))
+const Home=React.lazy(()=>import("./Home"))
+const Village=React.lazy(()=>import("./Village"))
+const Products=React.lazy(()=>import("./Products"))
+const Residents=React.lazy(()=>import("./Residents"))
+const Events=React.lazy(()=>import("./Events"))
+const DeleteAccount=React.lazy(()=>import("./DeleteAccount"))
+const Admin=React.lazy(()=>import("./Admin"))
 
 const translationEn = {
     VILLAGE: "VILLAGE UPDATE APP", Home: "Home", village: "village", Residents: "Residents", Events: "Events", products: "products",
     DeleteAccount: "DeleteAccount", admin: "Admin", Register: "Register", Login: "Login", Logout: "Logout", Register: "Register",
-    Admin: "Admin", Name: "Name", PhoneNumber: "PhoneNumber", Password: "Password", name: "Enter your name", phonenumber: "Enter your phonenumber",
+    Admin: "Admin", Name: "Name", PhoneNumber: "Number", Password: "Password", name: "Enter your name", phonenumber: "Enter your phonenumber",
     password: "Enter password", Create: "Create", shareName: "We'll never share your name with anyone else",
     sharePhoneNumber: "We'll never share your Phonenumber with anyone else", sharePassword: "We'll never share your password with anyone else", blankName: "Name cannot be blank",
-    blankPhoneNumber: "phoneNumber cannot be blank", blankPassword: "Password cannot be blank", SNO: "S.No", AdminName: "Admin Name", ContactNumber: "Contact Number", Description: "Description",
+    blankPhoneNumber: "PhoneNumber cannot be blank", blankPassword: "Password cannot be blank", SNO: "S.No", AdminName: "Admin Name", ContactNumber: "Contact Number", Description: "Description",
     Modify: "Modify", Show: "Show", Edit: "Edit", Suspend: "Suspend", Restore: "Restore", Delete: "Delete", Close: "Close", VillageName: "VillageName", Lists: "Lists of Admins",Restored: "Lists of Restore",
      NoAdmin: "No Admins are available",AdminRestore: "No Admins to Restore", ListsEvents:"Lists of Events",EventTitle : "Event Title",StartDate :"Start Date",
      EndDate : "End Date", NoEvents : "No Events are scheduled" , AllProducts :"All Products",MyProducts : "My Products" , ListsProducts:"Lists of All Products", ProductName:"Product Name",Price:"Price",
@@ -119,6 +120,17 @@ const Container = (props) => {
     const [isLogged, setIsLogged] = useState(false)
     const { t } = useTranslation()
 
+    const getRandomColor = () => {
+        const color = ['gold','orange','violet','blue','violet','brown']
+        let color1
+        for (let i = 0; i < color.length; i++) {
+          color1 = color[Math.floor(Math.random() * (color.length + 1 ))]
+        }
+        return color1
+      };
+
+      const welcomeColor = getRandomColor()
+
     const data = useSelector((state) => {
         return state.users.userDetails
     })
@@ -149,38 +161,39 @@ const Container = (props) => {
                     (
                         <div className="container-fluid">
                             <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "green" }}>
-                                <h1 className="navbar-brand" ><span style={{ backgroundColor: "gold" }}>{t("VILLAGE")}</span></h1>
+                                <h1 className="navbar-brand" ><span style={{ backgroundColor: `${welcomeColor}` }}>{t("VILLAGE")}</span></h1>
                                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
                                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                     <ul className="navbar-nav mr-auto">
-                                         <li className="nav-item active">
-                                            <li><Link className="nav-link" to='/home' style={{ color: "white" }}>{t("Home")}</Link></li>
-                                        </li>
-                                        <li className="nav-item active">
-                                            <li><Link className="nav-link" to='/village' style={{ color: "white" }}>{t("Village")}</Link></li>
-                                        </li>
-                                        <li className="nav-item active">
-                                            <li><Link className="nav-link" to='/residents' style={{ color: "white" }}>{t("Residents")}</Link></li>
-                                        </li>
-                                        <li className="nav-item active">
-                                            <li><Link className="nav-link" to='/events' style={{ color: "white" }}>{t("Events")}</Link></li>
-                                        </li>
-                                        <li className="nav-item active">
-                                            <li><Link className="nav-link" to='/products' style={{ color: "white" }}>{t("products")}</Link></li>
-                                        </li>
-                                        <li className="nav-item active">
-                                            <li><Link className="nav-link" to='/deleteaccount' style={{ color: "white" }}>{t("DeleteAccount")}</Link></li>
-                                        </li>
-                                        <li className="nav-item active">
-                                            <li><Link className="nav-link" to='#' style={{ color: "white" }} onClick={() => {
+                                       
+                                            <li className="nav-item active" >
+                                                <Link className="nav-link" to='/home' style={{ color: "white" }}>{t("Home")}</Link></li>
+                                    
+                                            <li className="nav-item active" >
+                                                <Link className="nav-link" to='/village' style={{ color: "white" }}>{t("Village")}</Link></li>
+                                    
+                                            <li className="nav-item active" >
+                                                <Link className="nav-link" to='/residents' style={{ color: "white" }}>{t("Residents")}</Link></li>
+                                        
+                                            <li className="nav-item active" >
+                                                <Link className="nav-link" to='/events' style={{ color: "white" }}>{t("Events")}</Link></li>
+                                     
+                                            <li className="nav-item active" >
+                                                <Link className="nav-link" to='/products' style={{ color: "white" }}>{t("products")}</Link></li>
+                                   
+                                            <li className="nav-item active" >
+                                                <Link className="nav-link" to='/deleteaccount' style={{ color: "white" }}>{t("DeleteAccount")}</Link></li>
+                                      
+                                            <li className="nav-item active" >
+                                                <Link className="nav-link" to='#' style={{ color: "white" }} onClick={() => {
                                                 Swal.fire('successfully logged out')
                                                 localStorage.clear()
                                                 props.history.push('/')
                                                 setIsLogged(false)
                                             }}>{t("Logout")}</Link></li>
-                                        </li>
+                                        
                                     </ul>
                                 </div>
                             </nav>
@@ -190,23 +203,23 @@ const Container = (props) => {
                         (
                             <div className="container-fluid">
                                 <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "green" }}>
-                                    <h1 className="navbar-brand" ><span style={{ backgroundColor: "gold" }}>{t("VILLAGE")}</span></h1>
+                                    <h1 className="navbar-brand" ><span style={{ backgroundColor: `${welcomeColor}`  }}>{t("VILLAGE")}</span></h1>
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                         <span className="navbar-toggler-icon"></span>
                                     </button>
                                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                         <ul className="navbar-nav me-auto mb-2 mb-lg-0" >
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='/admin' style={{ color: "white" }}>{t("Admin")}</Link></li>
-                                            </li>
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='#' style={{ color: "white" }} onClick={() => {
+                                           
+                                                <li className="nav-item active" >
+                                                    <Link className="nav-link" to='/admin' style={{ color: "white" }}>{t("Admin")}</Link></li>
+                                            
+                                                <li className="nav-item active" ><Link className="nav-link" to='#' style={{ color: "white" }} onClick={() => {
                                                     Swal.fire('successfully logged out')
                                                     localStorage.clear()
                                                     props.history.push('/')
                                                     setIsLogged(false)
                                                 }}>{t("Logout")}</Link></li>
-                                            </li>
+                                            
                                         </ul>
                                         <span className="navbar-text">
                                            <select name='language' onChange={handleLanguageChange}>
@@ -223,32 +236,33 @@ const Container = (props) => {
 
                             <div className="container-fluid">
                                 <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "green" }}>
-                                    <h1 className="navbar-brand" ><span style={{ backgroundColor: "gold" }}>{t("VILLAGE")}</span></h1>
+                                    <h1 className="navbar-brand" ><span style={{ backgroundColor: `${welcomeColor}` }}>{t("VILLAGE")}</span></h1>
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                         <span className="navbar-toggler-icon"></span>
                                     </button>
                                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='/home' style={{ color: "white" }}>{t("Home")}</Link></li>
-                                            </li>
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='/events' style={{ color: "white" }}>{t("Events")}</Link></li>
-                                            </li>
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='/products' style={{ color: "white" }}>{t("products")}</Link></li>
-                                            </li>
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='/deleteaccount' style={{ color: "white" }}>{t("DeleteAccount")}</Link></li>
-                                            </li>
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='#' style={{ color: "white" }} onClick={() => {
+                                       
+                                                <li className="nav-item active" >
+                                                    <Link className="nav-link" to='/home' style={{ color: "white" }}>{t("Home")}</Link></li>
+                                          
+                                                <li className="nav-item active" >
+                                                    <Link className="nav-link" to='/events' style={{ color: "white" }}>{t("Events")}</Link></li>
+                                           
+                                                <li className="nav-item active" >
+                                                    <Link className="nav-link" to='/products' style={{ color: "white" }}>{t("products")}</Link></li>
+                                        
+                                                <li className="nav-item active" >
+                                                    <Link className="nav-link" to='/deleteaccount' style={{ color: "white" }}>{t("DeleteAccount")}</Link></li>
+                                           
+                                                <li className="nav-item active" >
+                                                    <Link className="nav-link" to='#' style={{ color: "white" }} onClick={() => {
                                                     Swal.fire('successfully logged out')
                                                     localStorage.clear()
                                                     props.history.push('/')
                                                     setIsLogged(false)
                                                 }}>{t("Logout")}</Link></li>
-                                            </li>
+                                           
                                         </ul>
                                         <span className="navbar-text">
                                     
@@ -268,18 +282,19 @@ const Container = (props) => {
 
                             <div className="container-fluid">
                                 <nav className="navbar navbar-expand-lg navbar-light" style={{ backgroundColor: "green" }}>
-                                    <h1 className="navbar-brand" ><span style={{ backgroundColor: "gold" }}>{t("VILLAGE")}</span></h1>
+                                    <h1 className="navbar-brand" ><span style={{ backgroundColor: `${welcomeColor}`  }}>{t("VILLAGE")}</span></h1>
                                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                                         <span className="navbar-toggler-icon"></span>
                                     </button>
                                     <div className="collapse navbar-collapse" id="navbarNavDropdown">
                                         <ul className="navbar-nav me-auto mb-2 mb-lg-0" >
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='/register' style={{ color: "white" }}>{t("Register")}</Link></li>
-                                            </li>
-                                            <li className="nav-item active">
-                                                <li><Link className="nav-link" to='/' style={{ color: "white" }}>{t("Login")}</Link></li>
-                                            </li>
+                                          
+                                                <li className="nav-item active" >
+                                                    <Link className="nav-link" to='/register' style={{ color: "white" }}>{t("Register")}</Link></li>
+                                  
+                                                <li className="nav-item active" >
+                                                    <Link className="nav-link" to='/' style={{ color: "white" }}>{t("Login")}</Link></li>
+                                           
                                         </ul>
                                         <span className="navbar-text">
                                     
@@ -296,7 +311,7 @@ const Container = (props) => {
             }
             {isLogged && data.role !== 'superAdmin' ?
                 (<div>
-
+                    <Suspense fallback={<Spinner />}>
                     <Route path='/home' exact={true}  render={(props) => {
                             return   <Home  {...props} t={t}  />
                         }} />
@@ -311,26 +326,30 @@ const Container = (props) => {
                     <Route path='/deleteaccount' render={(props) => {
                         return <DeleteAccount  {...props} setIsLogged={setIsLogged} t={t} />
                     }} />
+                    </Suspense>
                 </div>)
                 : (isLogged && data.role === 'superAdmin') ?
                     (
                         <div>
+                               <Suspense fallback={<Spinner />}>
                             <Route path='/admin' render={(props) => {
                                 return <Admin  {...props} t={t}  />
-                            }} />
+                            }} /></Suspense>
                         </div>
                     )
 
                     :
                  <div>
                   
-                 
+                   <Suspense fallback={<Spinner />}>
                         <Route path='/register'  exact={true} render={(props) => {
                             return   <Register  {...props} t={t}  />
                         }} />
                         <Route path='/' exact={true} render={(props) => {
                             return <Login  {...props} setIsLogged={setIsLogged} t={t} />
-                        }} />
+                        }}
+                         />
+                         </Suspense>
                          
                     </div>
                  
