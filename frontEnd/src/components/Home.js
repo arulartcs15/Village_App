@@ -6,16 +6,16 @@ const Home = (props) => {
         <div className='container-fluid'>
             <div className='row'>
                 <div className='col-md-6'>
-                    <p style={{ paddingTop: '100px', fontFamily: 'Arial, sans-serif', fontSize: '20px', lineHeight: '1.6', textAlign: 'justify' }}>
-                        <p>
+                    
+                        <p  style={{ paddingTop: '100px', fontFamily: 'Arial, sans-serif', fontSize: '20px', lineHeight: '1.6', textAlign: 'justify' }}>
                             {t("Welcome")}</p>
-                        <p>
+                        <p  style={{  fontFamily: 'Arial, sans-serif', fontSize: '20px', lineHeight: '1.6', textAlign: 'justify' }}>
                             {t("comprehensive")} </p>
-                        <p>
+                        <p  style={{  fontFamily: 'Arial, sans-serif', fontSize: '20px', lineHeight: '1.6', textAlign: 'justify' }}>
                             {t("empower")}</p>
-                        <p>
+                        <p  style={{  fontFamily: 'Arial, sans-serif', fontSize: '20px', lineHeight: '1.6', textAlign: 'justify' }}>
                             {t("Join")}  </p>
-                    </p>
+                
                 </div>
                 <div className='col-md-4' >
                     <img  src="https://i.pinimg.com/originals/27/89/cc/2789ccbf0017d761112078a3ade3bba1.jpg"

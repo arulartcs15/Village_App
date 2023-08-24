@@ -1,8 +1,7 @@
-import { Button, Row, Col, Form } from 'react-bootstrap'
+import { Row, Col, Form } from 'react-bootstrap'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { asyncUserLogin } from '../actions/usersActions'
-import i18n from 'i18next'
 
 const Login = (props) => {
     const dispatch = useDispatch()
@@ -46,41 +45,56 @@ const Login = (props) => {
 
     return (
         <div>
-            <Row className="justify-content-md-center">
-                <center> <Col md="auto" > <h1 style={{ color: "DarkBlue" }}>{t("Login")} </h1> </Col></center>
-            </Row>
+            <div className='container'>
+                <div className='row'>
+                    <div className='col-md-3'>
 
-            <center>
-                <Form  >
-                    <Form.Group as={Row} className='mt-5'>
-                        <Form.Label className="mx-5" column md={2}>{t("PhoneNumber")}</Form.Label>
-                        <Col md={5}>
-                            <Form.Control type='text' value={phoneNumber} placeholder={t("phonenumber")} onChange={handleNumberChange} />
+                    </div>
+                    <div className='pad col-md-6'>
+                        <div className='card-shadow'>
+                        <div className='card body'>
+                            <div className='register'>
+                        <Row className="justify-content-md-center">
+                            <center> <Col md="auto" > <h1 style={{ color: "DarkBlue" }}>{t("Login")} </h1> </Col></center>
+                        </Row>
 
-                            <Form.Text className="text-muted">
-                                {formErrors.phoneNumber ? <span style={{ color: "red" }}>{t("blankPhoneNumber")}</span> : <span>{t("sharePhoneNumber")}</span>}
-                            </Form.Text>
-                        </Col>
-                    </Form.Group>
 
-                    <Form.Group as={Row} className='mt-3'>
-                        <Form.Label className="mx-5" column md={2}>{t("Password")}</Form.Label>
-                        <Col md={5}>
-                            <Form.Control type='password' value={password} placeholder={t("password")} onChange={handlePasswordchange} />
+                        <Form  className='form' >
+                            <Form.Group as={Row} className='mt-5'>
+                                <Form.Label  column md={2}>{t("PhoneNumber")}</Form.Label>
+                                <Col >
+                                    <Form.Control type='text' value={phoneNumber} placeholder={t("phonenumber")} onChange={handleNumberChange} />
 
-                            <Form.Text className="text-muted">
-                                {formErrors.password ? <span style={{ color: "red" }}>{t("blankPassword")}</span> : <span>{t("sharePassword")}</span>}
-                            </Form.Text>
-                        </Col>
+                                    <Form.Text className="text-muted">
+                                        {formErrors.phoneNumber ? <span style={{ color: "red" }}>{t("blankPhoneNumber")}</span> : <span style={{color:'green'}}>{t("sharePhoneNumber")}</span>}
+                                    </Form.Text>
+                                </Col>
+                            </Form.Group>
 
-                    </Form.Group>
+                            <Form.Group as={Row} className='mt-3'>
+                                <Form.Label  column md={2}>{t("Password")}</Form.Label>
+                                <Col>
+                                    <Form.Control type='password' value={password} placeholder={t("password")} onChange={handlePasswordchange} />
 
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
-                         {t("Login")}
-                    </Button>
-                </Form>
+                                    <Form.Text className="text-muted">
+                                        {formErrors.password ? <span style={{ color: "red" }}>{t("blankPassword")}</span> : <span style={{color:'green'}}>{t("sharePassword")}</span>}
+                                    </Form.Text>
+                                </Col>
+                            </Form.Group>
+                        </Form>
+                        <button  className='registerButton' type="submit" onClick={handleSubmit}>
+                                {t("Login")}
+                            </button>
+                        </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div className='col-md-3'>
 
-               </center>
+                    </div>
+
+                </div>
+            </div>
 
         </div>
     )

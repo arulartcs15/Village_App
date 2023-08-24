@@ -1,5 +1,44 @@
+/* lazy loading */
+.spinner{
+  position: relative;
+   border: 4px solid rgba(0, 0, 0, 0.3);
+   border-top: 4px solid #3498db;
+   border-radius: 50%;
+   width: 40px;
+   height: 40px;
+   animation: spin 3s linear infinite;
+   margin: auto;
+ }
+ 
+ @keyframes spin {
+     0% {
+       transform: rotate(0deg);
+     }
+   
+     100% {
+       transform: rotate(360deg);
+   }
+ }
+
+/* register and login form background color */
+.pad{
+  padding-top: 20px;
+}
+
+.heading{
+  display: flex;
+  justify-content: center;
+}
+
+
 .register{
   background-color: bisque;
+}
+
+.form{
+  padding-bottom: 25px;
+  padding-right: 10px;
+  padding-left: 10px;
 }
 
 .registerButton{
@@ -14,32 +53,46 @@
     background-color: green;
 }
 
-.pad{
-    padding-top: 20px;
+/* navBar */
+.nav1{
+  border-radius: 10px;
 }
 
-#heading{
-    display: flex;
-    justify-content: center;
+
+/* SUPERADMIN LOGGED IN  */
+/* display register component to add admin */
+.pad1{
+  padding-top: 20px;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 
-.spinner{
- position: relative;
-  border: 4px solid rgba(0, 0, 0, 0.3);
-  border-top: 4px solid #3498db;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 3s linear infinite;
+/* display list of suspend admins */
+.pad3{
+  padding-top: 40px;
+}
+
+/* display list of admins */
+.pad2{
+  padding-top: 20px;
+}
+
+/* ADMIN LOGGED IN  */
+/* village details display */
+div>h4{
   margin: auto;
 }
 
-@keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-  
-    100% {
-      transform: rotate(360deg);
-  }
+#p1{
+  margin: auto;
+}
+
+.h4{
+  padding-top: 5px ;
+  padding-bottom: 5px;
+}
+
+/* village details card background color */
+#background-color{
+  background-color:beige;
 }

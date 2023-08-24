@@ -23,7 +23,7 @@ const Village = () => {
     }, [name, accountDetails])
 
     const village = useSelector((state => {
-        return state.village.data
+        return state.village
     }))
 
     const handleNameChange = (e) => {
@@ -42,7 +42,7 @@ const Village = () => {
 
 
     const handleEdit = (ele) => {
-        setEdit(!edit)
+        setEdit(ele._id)
         setName(ele.name)
         setDistrictName(ele.districtName)
         setStateName(ele.state)
@@ -100,7 +100,7 @@ const Village = () => {
                 setStateName('')
             }
             {
-                edit ? dispatch(asyncEditVillage(village._id, formData, reset, setEdit)) :
+                edit ? dispatch(asyncEditVillage(village.data._id, formData, reset, setEdit)) :
                     dispatch(asyncCreateVillage(formData, reset))
             }
 
@@ -112,67 +112,84 @@ const Village = () => {
 
 
     return (
-        <div>
+        <div className="container">
+            <div className="row">
+            <div className="col-md-3">
+
+            </div>
+            <div className="col-md-6">
             {
-                (village?.hasOwnProperty('name')) && edit === false ? <ul> 
-                    <li style={{color:"blue"}}>VillageName -{village.name} </li>
-                    <li style={{color:"blue"}}>DistrictName-{village.districtName}</li>
-                    <li style={{color:"blue"}}>StateName-{village.state}</li>
-                    <button className="btn btn-info" onClick={() => { handleEdit(village) }}>Edit</button>
-                    <button className="btn btn-danger"  onClick={() => { handleDelete(village._id) }}>Delete</button>
-                </ul>
-
+                 (village.data?.hasOwnProperty('name')) &&  edit === false ? 
+               
+                 <div className=" pad2 card-shadow">
+                    <div id="background-color" className=" card body">
+                    <h4  className="h4" style={{color:"black"}} >VillageName -{village.data.name} </h4>
+                    <h4  className="h4"  style={{color:"black"}} >DistrictName-{village.data.districtName}</h4>
+                    <h4  className="h4"  style={{color:"black"}} >StateName-{village.data.state}</h4>
+                    <p id='p1'>
+                    <button className="btn btn-info" onClick={() => { handleEdit(village.data) }}>Edit</button>
+                    <button className="btn btn-danger"  onClick={() => { handleDelete(village.data._id) }}>Delete</button>
+                    </p>
+                    </div>
+                    </div>
+                    
                     :
-
-                    <div>
+                    <div className="pad1">
+                    <div className="card-shadow">
+                        <div className="card body">
+                        <div className="register" >
                         <Row className="justify-content-md-center">
                             <center> <Col md="auto" > <h1 style={{ color: "DarkBlue" }}>Village Register</h1> </Col></center>
                         </Row>
 
-                        <center>
-                            <Form  >
+                      
+                            <Form className="form" >
                                 <Form.Group as={Row} className='mt-5'>
-                                    <Form.Label className="mx-5" column md={2}>Village Name</Form.Label>
-                                    <Col md={5}>
+                                    <Form.Label column md={2}>Village Name</Form.Label>
+                                    <Col >
                                         <Form.Control type='text' value={name} placeholder="Enter your village name" onChange={handleNameChange} />
 
                                         <Form.Text className="text-muted">
-                                            {formErrors.name ? <span style={{ color: "red" }}>{formErrors.name}</span> : "We'll never share your VillageName with anyone else."}
+                                            {formErrors.name ? <span style={{ color: "red" }}>{formErrors.name}</span> :<span  style={{ color: "green" }} > "We'll never share your VillageName with anyone else." </span> }
                                         </Form.Text>
                                     </Col>
                                 </Form.Group>
 
                                 <Form.Group as={Row} className='mt-3'>
-                                    <Form.Label className="mx-5" column md={2}>District Name</Form.Label>
-                                    <Col md={5}>
+                                    <Form.Label  column md={2}>District Name</Form.Label>
+                                    <Col >
                                         <Form.Control type='text' value={districtName} placeholder="Enter your District name" onChange={handleDistrictNameChange} />
 
                                         <Form.Text className="text-muted">
-                                            {formErrors.districtName ? <span style={{ color: "red" }}>{formErrors.districtName}</span> : "We'll never share your DistrictName with anyone else."}
+                                            {formErrors.districtName ? <span style={{ color: "red" }}>{formErrors.districtName}</span> : <span style={{ color: "green" }} > "We'll never share your DistrictName with anyone else."</span>}
                                         </Form.Text>
                                     </Col>
                                 </Form.Group>
 
                                 <Form.Group as={Row} className='mt-3'>
-                                    <Form.Label className="mx-5" column md={2}>State Name</Form.Label>
-                                    <Col md={5}>
+                                    <Form.Label column md={2}>State Name</Form.Label>
+                                    <Col>
                                         <Form.Control type='text' value={stateName} placeholder="Enter your state name" onChange={handleStateNameChange} />
 
                                         <Form.Text className="text-muted">
-                                            {formErrors.stateName ? <span style={{ color: "red" }}>{formErrors.stateName}</span> : "We'll never share your StateName with anyone else."}
+                                            {formErrors.stateName ? <span style={{ color: "red" }}>{formErrors.stateName}</span> : <span style={{ color: "green" }}>"We'll never share your StateName with anyone else."</span>}
                                         </Form.Text>
                                     </Col>
                                 </Form.Group>
+                                </Form>
 
-                                <Button variant="primary" type="submit" onClick={handleSubmit}>
-                                    create
-                                </Button>
-                            </Form>
-                        </center>
+                                <button className="registerButton" type="submit" onClick={handleSubmit}>
+                                {edit ? 'Edit' : 'create'}
+                                </button>
+                                </div>
+                           </div>
+                        </div>
                     </div>
             }
-
-
+                </div>
+                <div className="col-md-3">
+                </div>
+                </div>
         </div>
 
     )
