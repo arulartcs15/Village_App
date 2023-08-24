@@ -59,13 +59,13 @@ const ResidentForm = (props) => {
             errors.name = 'Name cannot be blank'
         }
         if (phoneNumber.length === 0) {
-            errors.phoneNumber = 'phoneNumber cannot be blank'
+            errors.phoneNumber = 'PhoneNumber cannot be blank'
         }
         if (doorNo.length === 0) {
             errors.doorNo = 'Door Number cannot be blank'
         }
-        if (doorNo.password === 0) {
-            errors.password = 'password cannot be blank'
+        if (password.length === 0) {
+            errors.password = 'Password cannot be blank'
         }
 
     }
@@ -101,67 +101,67 @@ const ResidentForm = (props) => {
     }
 
     return (
-        <div>
+        <div className='pad1'>
             { data.village.data === null ?  <p style={{color:"red"}}>Create Village Record,to access this page</p> :
-         <center>
+         <div className='card-shadow'>
+            <div className='card body'>
+                <div className='register'>
              
               <Row className="justify-content-md-center">
                 <center> <Col md="auto" > <h1 style={{ color: "DarkBlue" }}>{data.residents.editId ? "Edit Resident" : " Add Resident"}</h1> </Col></center>
             </Row>
 
-                <Form  >
+                <Form className='form' >
                     <Form.Group as={Row} className='mt-5'>
-                        <Form.Label className="mx-5" column md={2}>Resident Name</Form.Label>
-                        <Col md={5}>
+                        <Form.Label  column md={2}>Resident Name</Form.Label>
+                        <Col >
                             <Form.Control type='text' value={name} placeholder="Enter your Resident name" onChange={handleNameChange} />
 
                             <Form.Text className="text-muted">
-                                {formErrors.name ? <span style={{ color: "red" }}>{formErrors.name}</span> : "We'll never share your Resident Name with anyone else."}
+                                {formErrors.name ? <span style={{ color: "red" }}>{formErrors.name}</span> : <span style={{ color: "green" }}>"We'll never share your Resident Name with anyone else."</span>}
                             </Form.Text>
                         </Col>
                     </Form.Group>
 
                     <Form.Group as={Row} className='mt-3'>
-                        <Form.Label className="mx-5" column md={2}>PhoneNumber</Form.Label>
-                        <Col md={5}>
+                        <Form.Label  column md={2}>Number</Form.Label>
+                        <Col >
                             <Form.Control type='text' value={phoneNumber} placeholder="Enter your  phoneNumber" onChange={handleNumberChange} />
-
                             <Form.Text className="text-muted">
-                                {formErrors.phoneNumber ? <span style={{ color: "red" }}>{formErrors.phoneNumber}</span> : "We'll never share your Phone Number with anyone else."}
+                                {formErrors.phoneNumber ? <span style={{ color: "red" }}>{formErrors.phoneNumber}</span> : <span  style={{ color: "green" }}>"We'll never share your Phone Number with anyone else."</span> }
                             </Form.Text>
                         </Col>
                     </Form.Group>
 
                     <Form.Group as={Row} className='mt-3'>
-                        <Form.Label className="mx-5" column md={2}>DoorNo</Form.Label>
-                        <Col md={5}>
+                        <Form.Label column md={2}>DoorNo</Form.Label>
+                        <Col >
                             <Form.Control type='text' value={doorNo} placeholder="Enter your DoorNo" onChange={handleDoorNoChange} />
-
                             <Form.Text className="text-muted">
-                                {formErrors.doorNo ? <span style={{ color: "red" }}>{formErrors.doorNo}</span> : "We'll never share your Resident details with anyone else."}
+                                {formErrors.doorNo ? <span style={{ color: "red" }}>{formErrors.doorNo}</span> : <span  style={{ color: "green" }}> "We'll never share your Resident details with anyone else."</span>}
                             </Form.Text>
                         </Col>
                     </Form.Group>
 
                     <Form.Group as={Row} className='mt-3'>
-                            <Form.Label className="mx-5" column md={2}>Password</Form.Label>
-                            <Col md={5}>
+                            <Form.Label  column md={2}>Password</Form.Label>
+                            <Col >
                                 <Form.Control type='password' value={password} placeholder={"Enter your password"} onChange={handlePasswordchange} />
 
                                 <Form.Text className="text-muted">
-                                    {formErrors.password ? <span style={{ color: "red" }}>{formErrors.password}</span> : "We'll never share your password with anyone else."}
+                                    {formErrors.password ? <span style={{ color: "red" }}>{formErrors.password}</span> : <span style={{ color: "green" }}>"We'll never share your password with anyone else."</span>}
                                 </Form.Text>
                             </Col>
                         </Form.Group>
+                        </Form>
 
-
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    <button className='registerButton'  type="submit" onClick={handleSubmit}>
                         {data.residents.editId ? 'Edit' : 'create'}
-                    </Button>
+                    </button>
+               </div>
+                </div>
+                </div>
 
-                </Form>
-                
-                </center>
                     }
 
       

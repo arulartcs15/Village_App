@@ -11,7 +11,7 @@ const Residents = (props) => {
 
     const [display, setDisplay] = useState({})
 
-    const accountData = useSelector((state)=>{
+    const accountData = useSelector((state) => {
         return state.users.userDetails
     })
 
@@ -24,15 +24,15 @@ const Residents = (props) => {
         return state.residents
     }))
 
-    
-    const villageData= useSelector((state => {
+
+    const villageData = useSelector((state => {
         return state.village
     }))
 
     const handleShow = (ele) => {
         setDisplay(ele)
     }
-   
+
     const handleEdit = (id) => {
         dispatch(asyncSetEditResidentId(id))
     }
@@ -60,34 +60,29 @@ const Residents = (props) => {
     }
 
     return (
-        <div >
+        <div>
             <div className="row">
-                <div className="col-md-6 ml-auto">
-                    {
-                        dataResidents.editId ? <EditResident /> : <AddResident />
-                    }
+                <div className="col-md-6 ">
+                    {dataResidents.editId ? <EditResident /> : <AddResident />}
                 </div>
-
-                <div className="col-md-6 mt-5" >
-                { villageData.data === null ?  <></> :
-                     dataResidents.data.length  > 0  ?   <> 
-                     <h3 style={{color:'DarkBlue'}}>Lists of Residents</h3> 
-                   
-                        <table className="table table-hover" >
-                            <thead>
-                                <tr>
-                                    <th>S.NO</th>
-                                    <th>Resident Name</th>
-                                    <th>Description</th>
-                                    <th>Modify</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    dataResidents.data.map((ele, i) => {
+                <div className=" pad2 col-md-6 " >
+                    {villageData.data === null ? <></> :
+                        dataResidents.data.length > 0 ? <>
+                            <h3 style={{ color: 'DarkBlue' }}>Lists of Residents</h3>
+                            <table className="table table-hover" >
+                                <thead>
+                                    <tr>
+                                        <th>S.NO</th>
+                                        <th>Resident Name</th>
+                                        <th>Description</th>
+                                        <th>Modify</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {dataResidents.data.map((ele, i) => {
                                         return (
                                             <tr key={i}>
-                                                <td >{i + 1}</td>
+                                                <td>{i + 1}</td>
                                                 <td>{ele.name}</td>
                                                 <td> <button type="button" className="btn btn-primary" onClick={() => { handleShow(ele) }} data-bs-toggle="modal" data-bs-target="#exampleModal">
                                                     Show
@@ -100,10 +95,8 @@ const Residents = (props) => {
                                             </tr>
                                         )
                                     })
-                                }</tbody> </table>  </> 
-                                
-                                : <p style={{color:'red'}}>No Residents Data</p> } 
-
+                                    }</tbody></table></>
+                            : <p style={{ color: 'red' }}>No Residents Data</p>}
                 </div>
             </div>
 
