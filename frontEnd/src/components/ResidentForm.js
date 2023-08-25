@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
-import { Button, Row, Col, Form } from 'react-bootstrap'
+import { Row, Col, Form } from 'react-bootstrap'
 import { asyncGetVillage } from '../actions/villagesActions'
 import { asyncGetResidents } from '../actions/residentsActions'
 

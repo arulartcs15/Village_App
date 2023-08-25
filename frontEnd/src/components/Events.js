@@ -4,6 +4,7 @@ import { asyncGetEvents, asyncSetEditEventId, asyncDestroyEvent } from "../actio
 import { asyncGetVillage } from "../actions/villagesActions"
 import AddEvent from '../components/AddEvent'
 import EditEvent from "./EditEvent"
+import Calendar from './Calendar'
 
 const Events = (props) => {
     const dispatch = useDispatch()
@@ -48,18 +49,20 @@ const Events = (props) => {
     const handleShowEvent = (ele) => {
         setShowEvent(ele)
     }
+
+    console.log(eventsData.data,'parent ')
    return (
         <div>
             {
                 accountData.role === 'admin' ?
                     <div className="row">
-                        <div className="col-md-5 ml-auto">
+                        <div className="col-md-6 ">
 
                             {eventsData?.editId ? <EditEvent /> : <AddEvent />}
 
                         </div>
 
-                        <div className="col-md-7 mt-5" >
+                        <div className=" pad2 col-md-6 " >
                             {data1?.village.data === null ? <></> :
                                 eventsData.data?.length > 0 ?
                                     <div>
@@ -107,39 +110,40 @@ const Events = (props) => {
 
                     data1.village.data === null ? <></> :
                         (eventsData.data?.length > 0) ?
-                            <div>
-                                <h3 style={{ color: "darkblue" }}>{t("ListsEvents")}</h3>
-                                <center>
-                                    <table className="table">
-                                        <thead>
-                                            <tr>
-                                                <th className="col">{t("SNO")}</th>
-                                                <th className="col">{t("EventTitle")}</th>
-                                                <th className="col" >{t("StartDate")}</th>
-                                                <th className="col">{t("EndDate")}</th>
-                                                <th className="col">{t("Description")}</th>
+                        <Calendar  data={eventsData.data}/>
+                            // <div>
+                            //     <h3 style={{ color: "darkblue" }}>{t("ListsEvents")}</h3>
+                            //     <center>
+                            //         <table className="table">
+                            //             <thead>
+                            //                 <tr>
+                            //                     <th className="col">{t("SNO")}</th>
+                            //                     <th className="col">{t("EventTitle")}</th>
+                            //                     <th className="col" >{t("StartDate")}</th>
+                            //                     <th className="col">{t("EndDate")}</th>
+                            //                     <th className="col">{t("Description")}</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                eventsData.data.map((ele, i) => {
-                                                    return <tr key={i}>
-                                                        <td>{i + 1}</td>
-                                                        <td>{ele.title}</td>
-                                                        <td>{(ele.startDate).slice(0, 10)}</td>
-                                                        <td>{(ele.endDate).slice(0, 10)}</td>
-                                                        <td> <button type="button" className="btn btn-primary" onClick={() => { handleShowEvent(ele) }} data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                            {t("Show")}
-                                                        </button></td>
+                            //                 </tr>
+                            //             </thead>
+                            //             <tbody>
+                            //                 {
+                            //                     eventsData.data.map((ele, i) => {
+                            //                         return <tr key={i}>
+                            //                             <td>{i + 1}</td>
+                            //                             <td>{ele.title}</td>
+                            //                             <td>{(ele.startDate).slice(0, 10)}</td>
+                            //                             <td>{(ele.endDate).slice(0, 10)}</td>
+                            //                             <td> <button type="button" className="btn btn-primary" onClick={() => { handleShowEvent(ele) }} data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            //                                 {t("Show")}
+                            //                             </button></td>
 
-                                                    </tr>
-                                                })
-                                            }
-                                        </tbody>
-                                    </table>
-                                </center>
-                            </div>
+                            //                         </tr>
+                            //                     })
+                            //                 }
+                            //             </tbody>
+                            //         </table>
+                            //     </center>
+                            // </div>
                             : <p style={{ color: 'Red' }}>{t("NoEvents")} </p>
             }
 
