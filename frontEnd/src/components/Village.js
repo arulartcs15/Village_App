@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { Button, Row, Col, Form } from 'react-bootstrap'
+import { Row, Col, Form } from 'react-bootstrap'
 import { asyncGetVillage, asyncCreateVillage, asyncEditVillage, asyncDestroyVillage } from "../actions/villagesActions"
-import { asyncAccountDetails } from "../actions/usersActions"
 import Swal from 'sweetalert2'
+
 const Village = () => {
     const [name, setName] = useState('')
     const [stateName, setStateName] = useState('')

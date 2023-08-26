@@ -19,7 +19,7 @@ const DeleteAccount = React.lazy(() => import("./DeleteAccount"))
 const Admin = React.lazy(() => import("./Admin"))
 
 const translationEn = {
-    VILLAGE: "VILLAGE UPDATE APP", Home: "Home", village: "village", Residents: "Residents", Events: "Events", products: "products",
+    VILLAGE: "VILLAGE UPDATE APP", Home: "Home", village: "village", Residents: "Residents", Events: "Events", products: "Products",
     DeleteAccount: "DeleteAccount", admin: "Admin", Register: "Register", Login: "Login", Logout: "Logout", Register: "Register",
     Admin: "Admin", Name: "Name", PhoneNumber: "Number", Password: "Password", name: "Enter your name", phonenumber: "Enter your phonenumber",
     password: "Enter password", Create: "Create", shareName: "We'll never share your name with anyone else",
