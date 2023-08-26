@@ -50,7 +50,6 @@ const Events = (props) => {
         setShowEvent(ele)
     }
 
-    console.log(eventsData.data,'parent ')
    return (
         <div>
             {

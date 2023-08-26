@@ -27,7 +27,7 @@ const usersReducers = (state = userInitialState, action) => {
 
          case  DELETE_ADMIN :{
             return {...state,data:state.data.map((ele)=>{
-                if(ele._id == action.payload._id){
+                if(ele._id === action.payload._id){
                         return {...ele,...action.payload}
                 }
                 else{

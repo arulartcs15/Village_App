@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef }from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -6,58 +6,86 @@ import interactionPlugin from '@fullcalendar/interaction'
 import * as bootstrap from 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const Calendar=(props)=>{
-    const {data}=props
-    console.log(data,'child')
-      const [events,setEvents]=useState([])
+const Calender = (props) => {
+  const [events, setEvents] = useState([])
 
-      useEffect(()=>{
-        const dataEvents=data.map((ele)=>({
-            title:ele.title,
-            start:ele.startDate,
-            end:ele.endDate
-              
-        }))
-        setEvents(dataEvents)
-        console.log(dataEvents,'data')
-      },[data])
 
-      const showPopup=useRef(null)
+  useEffect(() => {
+    console.log(props.data.endDate);
+    if (Array.isArray(props.data)) {
+      const formattedEvents = props.data.map((ele) => ({
+        title: ele.title,
+        start: ele.startDate,
+        end: ele.endDate,
+      }));
+      setEvents(formattedEvents)
+    }
+  }, [props.data])
 
-console.log(events,'state')
-      const handleShow=(events)=>{
-        console.log('fi')
-        showPopup.current=new bootstrap.Popover(events.el,{
-            title:`Event Title : ${events.event.title}`,
-            placement:'auto',
-            trigger:'manual',
-            customClass:'popoverStyle',
-            content:`<p>  <strong > Start Date : </strong> ${events.event.start} </p><br/> 
-            <p> <strong> End Date : </strong> ${events.event.end} </p>`,
-            html:true
-        })
+  useEffect(() => {
+   
+    return () => {
+      disposePopover();
+    };
+  }, [])
 
-      showPopup.current.show()
+ 
+  const activePopoverRef = useRef(null)
 
-      }
 
-    return(<div>
-   <FullCalendar 
-   plugins={[dayGridPlugin,timeGridPlugin,interactionPlugin]}
-   initialView='dayGridMonth'
-   dayMaxEvents={true}
-   headerToolbar={{
-    left:'prev,next today',
-    center:'title',
-    right:'dayGridMonth,timeGridMonth,timeGridDay'
-   }}
-   height={'90vh'}
-   events={events}
-   eventClick={handleShow}
+  const disposePopover = () => {
+    if (activePopoverRef.current) {
+      activePopoverRef.current.dispose()
+      activePopoverRef.current = null
+    }
+  }
 
-   />
-    </div>)
+
+  const handleEventClick = (info) => {
+    console.log(info);
+    disposePopover()
+
+    activePopoverRef.current = new bootstrap.Popover(info.el, {
+      title: `Event Title: ${info.event.title}`,
+      placement: 'auto',
+      trigger: 'manual',
+      customClass: 'popoverStyle',
+      content: `<p>
+      <strong>StartDate:</strong>${info.event.start} <br/>
+       <strong>EndDate:</strong>${info.event.end} <br/>
+       </p>`,
+      html: true,
+    })
+    activePopoverRef.current.show()
+  }
+
+
+  const handleCalendarClick = () => {
+    
+    disposePopover()
+  }
+
+  return (
+    <div>
+      <FullCalendar
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        initialView="dayGridMonth"
+        dayMaxEvents={true}
+        themeSystem="bootstrap5"
+        headerToolbar={{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay',
+        }}
+        height={'90vh'}
+        events={events}
+        eventClick={handleEventClick} 
+        dateClick={handleCalendarClick} 
+      />
+
+    </div>
+  )
 }
 
-export default Calendar
+export default Calender
 

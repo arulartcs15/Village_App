@@ -38,20 +38,41 @@ const EventForm = (props) => {
     const [formErrors, setformErrors] = useState({})
     const errors = {}
 
+
+
     const handleTitleChange = (e) => {
         setTitle(e.target.value)
     }
 
     const handleStartDatechange = (date) => {
-      console.log(date,'k')
-        const newDate = (`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`)
-        setStartDate(newDate)
-        console.log(newDate)
+        const newDate = (`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`)
+        const res=dateAlter(newDate)
+        setStartDate(res)
     }
 
+    const dateAlter=(data)=>{
+        let result=''
+        for(let i=0;i<data.length;i++){
+          if(i===5){
+            if(data[i]<10){
+                result+=`0${data[i]}`
+            }else{
+                result+=data[i]
+            }
+          }
+        else{
+        result+=data[i]
+    }
+        }
+      return result 
+    }
+
+
+
     const handleEndDatechange = (date) => {
-       const newDate = (`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`)
-       setEndDate(newDate)
+       const newDate = (`${date.getFullYear()}-${(date.getMonth()+1)}-${date.getDate()}`)
+       const res=dateAlter(newDate)
+       setEndDate(res)
     }
 
     const handleDescriptionchange = (e) => {
